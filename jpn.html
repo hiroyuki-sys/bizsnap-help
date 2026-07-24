@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BizSnap 公式マニュアル & チュートリアル</title>
+    <style>
+        :root {
+            --primary-color: #007AFF;
+            --primary-dark: #0056b3;
+            --primary-light: #e5f1ff;
+            --bg-color: #F2F2F7;
+            --card-bg: #FFFFFF;
+            --text-main: #1C1C1E;
+            --text-sub: #6C6C70;
+            --border-color: #E5E5EA;
+            --accent-orange: #FF9500;
+            --accent-green: #34C759;
+            --accent-red: #FF3B30;
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
+            --shadow-md: 0 4px 16px rgba(0,0,0,0.1);
+            --radius-lg: 16px;
+            --radius-md: 10px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding-bottom: 60px;
+        }
+
+        /* Header Navigation */
+        .header {
+            position: sticky;
+            top: 0;
+            background-color: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 1000;
+            padding: 12px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--text-main);
+        }
+
+        .brand-icon {
+            width: 38px;
+            height: 38px;
+            background: linear-gradient(135deg, #007AFF, #5856D6);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 20px;
+            box-shadow: 0 2px 6px rgba(0,122,255,0.3);
+        }
+
+        .brand-title {
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 16px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-sub);
+            font-size: 14px;
+            font-weight: 500;
+            padding: 6px 12px;
+            border-radius: 20px;
+            transition: all 0.2s ease;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--primary-color);
+            background-color: var(--primary-light);
+        }
+
+        /* Container Layout */
+        .container {
+            max-width: 1000px;
+            margin: 32px auto;
+            padding: 0 20px;
+        }
+
+        /* Hero Banner */
+        .hero {
+            background: linear-gradient(135deg, #1C1C1E, #2C2C2E);
+            color: white;
+            border-radius: var(--radius-lg);
+            padding: 40px;
+            margin-bottom: 32px;
+            box-shadow: var(--shadow-md);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 250px;
+            height: 250px;
+            background: radial-gradient(circle, rgba(0,122,255,0.4) 0%, rgba(0,0,0,0) 70%);
+            border-radius: 50%;
+        }
+
+        .hero h1 {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+        }
+
+        .hero p {
+            font-size: 16px;
+            color: #E5E5EA;
+            max-width: 600px;
+            line-height: 1.7;
+        }
+
+        .hero-badges {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 600;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+        }
+
+        /* Section Styling */
+        .section {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--bg-color);
+        }
+
+        .section-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            background: var(--primary-light);
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .section-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        /* Steps Layout */
+        .steps {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .step-card {
+            display: flex;
+            gap: 20px;
+            background-color: var(--bg-color);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .step-num {
+            min-width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .step-content {
+            flex: 1;
+        }
+
+        .step-content h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .step-content p {
+            font-size: 14px;
+            color: var(--text-sub);
+            margin-bottom: 12px;
+        }
+
+        .step-content ul {
+            padding-left: 20px;
+            font-size: 14px;
+            color: var(--text-main);
+            margin-bottom: 12px;
+        }
+
+        .step-content li {
+            margin-bottom: 6px;
+        }
+
+        /* Mockup UI Component */
+        .mock-ui {
+            background: #FFFFFF;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 16px;
+            margin-top: 12px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+        }
+
+        .mock-header {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-sub);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .chip-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding: 12px;
+            background: #F2F2F7;
+            border-radius: 8px;
+        }
+
+        .chip {
+            background: white;
+            border: 1px solid rgba(0,0,0,0.1);
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 500;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+            cursor: pointer;
+            transition: transform 0.1s;
+        }
+
+        .chip:hover {
+            transform: translateY(-1px);
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        /* Feature Table & Grid */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        .feature-card {
+            background: #F9F9FB;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 20px;
+        }
+
+        .feature-card h4 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .feature-card p {
+            font-size: 13px;
+            color: var(--text-sub);
+        }
+
+        /* Plans Comparison Table */
+        .plan-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 16px;
+            font-size: 14px;
+        }
+
+        .plan-table th, .plan-table td {
+            padding: 14px 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .plan-table th {
+            background: var(--bg-color);
+            font-weight: 700;
+        }
+
+        .plan-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .check-icon {
+            color: var(--accent-green);
+            font-weight: bold;
+        }
+
+        .cross-icon {
+            color: var(--accent-red);
+            font-weight: bold;
+        }
+
+        /* Callout Box */
+        .callout {
+            padding: 16px 20px;
+            border-radius: var(--radius-md);
+            margin: 16px 0;
+            display: flex;
+            gap: 12px;
+            font-size: 14px;
+        }
+
+        .callout-info {
+            background: #E5F1FF;
+            border-left: 4px solid var(--primary-color);
+            color: #004085;
+        }
+
+        .callout-warning {
+            background: #FFF3CD;
+            border-left: 4px solid var(--accent-orange);
+            color: #856404;
+        }
+
+        /* FAQ Accordion */
+        .faq-item {
+            border-bottom: 1px solid var(--border-color);
+            padding: 16px 0;
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+
+        .faq-question {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .faq-question::before {
+            content: "Q.";
+            color: var(--primary-color);
+            font-size: 18px;
+        }
+
+        .faq-answer {
+            font-size: 14px;
+            color: var(--text-sub);
+            padding-left: 28px;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px;
+            color: var(--text-sub);
+            font-size: 13px;
+        }
+
+        @media (max-width: 600px) {
+            .header {
+                flex-direction: column;
+                gap: 12px;
+                padding: 12px 16px;
+            }
+            .step-card {
+                flex-direction: column;
+            }
+            .hero {
+                padding: 24px;
+            }
+            .hero h1 {
+                font-size: 24px;
+            }
+            .section {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header class="header">
+        <a href="#" class="brand">
+            <div class="brand-icon">📷</div>
+            <span class="brand-title">BizSnap</span>
+        </a>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="#about">概要</a></li>
+                <li><a href="#tutorial">使い方</a></li>
+                <li><a href="#features">主要機能</a></li>
+                <li><a href="#plans">プラン比較</a></li>
+                <li><a href="#faq">FAQ</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+
+        <!-- Hero Section -->
+        <section class="hero" id="about">
+            <h1>BizSnap アプリガイド & チュートリアル</h1>
+            <p>名刺撮影からAI OCR文字認識、ワンタップでフィールドにパーツを嵌め込む「パズル入力」まで。BizSnapの全機能をわかりやすく解説します。</p>
+            <div class="hero-badges">
+                <span class="badge">📱 iOS 17+ 対応</span>
+                <span class="badge">🔍 超広角マクロ撮影</span>
+                <span class="badge">🧩 直感パズルOCR</span>
+                <span class="badge">🔒 完全ローカル保管</span>
+            </div>
+        </section>
+
+        <!-- Quick Start Tutorial -->
+        <section class="section" id="tutorial">
+            <div class="section-header">
+                <div class="section-icon">🚀</div>
+                <h2 class="section-title">クイックスタート・チュートリアル</h2>
+            </div>
+
+            <div class="steps">
+                <!-- Step 1 -->
+                <div class="step-card">
+                    <div class="step-num">1</div>
+                    <div class="step-content">
+                        <h3>新規名刺の追加</h3>
+                        <p>メイン画面（一覧画面）の右上にある <strong>「＋」ボタン</strong> をタップします。新しい空データが追加され、詳細画面が開きます。</p>
+                        <div class="callout callout-info">
+                            💡 フリープランでは1日5件まで名刺の追加が可能です。プレミアムプランに加入すると登録件数が無制限になります。
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="step-card">
+                    <div class="step-num">2</div>
+                    <div class="step-content">
+                        <h3>名刺の撮影（超広角マクロ自動補正）</h3>
+                        <p>詳細画面で「Japanese（日本語面）」または「English（英語面）」のカメラマーク領域をタップするとカメラが起動します。</p>
+                        <ul>
+                            <li><strong>撮影枠に合わせる:</strong> 画面上の名刺型ガイド枠内に名刺を収めます。</li>
+                            <li><strong>自動近接フォーカス:</strong> iPhone 13 Pro以降などの超広角レンズ（マクロ撮影目安: 約8cm）に対応しており、近接でもクッキリ撮影できます。</li>
+                            <li><strong>自動輪郭検出 & 補正:</strong> シャッターを切ると、自動で名刺の四角い枠を検出し、斜めから撮った写真も正面からの真っ直ぐな画像に補正されます。</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="step-card">
+                    <div class="step-num">3</div>
+                    <div class="step-content">
+                        <h3>「パズル入力」でOCR認識チップを嵌め込む</h3>
+                        <p>撮影と画像補正が完了すると、自動的に「パズル入力画面」へ遷移します。</p>
+                        <ul>
+                            <li><strong>上部（入力フィールド）:</strong> 氏名、会社名、役職、部署、電話、Email、住所が表示されます。現在フォーカス中の項目は青色でハイライトされます。</li>
+                            <li><strong>下部（チップパレット）:</strong> OCR（高精度文字解析）で名刺から読み取られた文字列がブロック（チップ）になって並びます。</li>
+                            <li><strong>ワンタップ入力:</strong> 目的のチップをタップするだけで、フォーカス中の項目に入力され、自動的に次の未入力項目へ移動します。</li>
+                            <li><strong>修正方法:</strong> 項目を2回続けてタップ（ダブルタップ）すると、入力内容をクリアできます。</li>
+                        </ul>
+
+                        <!-- Mock UI Demo -->
+                        <div class="mock-ui">
+                            <div class="mock-header">
+                                <span>パズル入力パレット例</span>
+                                <span style="color:var(--primary-color);">「会社名」を入力中</span>
+                            </div>
+                            <div class="chip-container">
+                                <div class="chip">株式会社BizSnap</div>
+                                <div class="chip">代表取締役</div>
+                                <div class="chip">一條 寛之</div>
+                                <div class="chip">03-1234-5678</div>
+                                <div class="chip">info@bizsnap.jp</div>
+                                <div class="chip">東京都千代田区1-1-1</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="step-card">
+                    <div class="step-num">4</div>
+                    <div class="step-content">
+                        <h3>保存と確認・画像のピンチ拡大</h3>
+                        <p>パズル入力が終わったら右上の <strong>「保存」</strong> をタップします。</p>
+                        <ul>
+                            <li><strong>画像の拡大表示:</strong> 詳細画面で撮影済みの名刺画像をタップすると、全画面の拡大モード（Zoomable View）が開きます。ピンチイン・ピンチアウトやダブルタップで拡大縮小できます。</li>
+                            <li><strong>メモ機能:</strong> フリーテキストのメモ欄に面談日や補足情報を入力できます。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Feature Guide -->
+        <section class="section" id="features">
+            <div class="section-header">
+                <div class="section-icon">⚡</div>
+                <h2 class="section-title">便利な機能と活用テクニック</h2>
+            </div>
+
+            <div class="feature-grid">
+                <!-- Search -->
+                <div class="feature-card">
+                    <h4>🔍 高速スマート検索</h4>
+                    <p>氏名・会社名・Emailはもちろん、メモ欄の単語や登録日付でも検索できます。</p>
+                    <p style="margin-top:6px; font-weight:600; color:var(--primary-color);">【日付検索の裏技】</p>
+                    <p>「2026」と数字4桁を入れると2026年登録のデータ、「202605」と6桁を入れると2026年5月登録のデータを即座に絞り込めます。</p>
+                </div>
+
+                <!-- Item Settings -->
+                <div class="feature-card">
+                    <h4>⚙️ 扱う項目のカスタマイズ</h4>
+                    <p>メニューから「扱う項目を設定」を選ぶと、日本語・英語それぞれの表示・入力項目（役職や部署、住所など）を自由にON/OFFできます。</p>
+                    <p style="margin-top:6px; color:var(--text-sub);">※ 必要な項目だけに絞り込むことで、パズル入力がさらにスムーズになります。</p>
+                </div>
+
+                <!-- Backup & Import -->
+                <div class="feature-card">
+                    <h4>📦 全データ書き出し・インポート</h4>
+                    <p>登録された名刺データと画像（JPEG）を一括でZIPファイルにバックアップ（書き出し）できます。</p>
+                    <p style="margin-top:6px; color:var(--text-sub);">機種変更時やデータのバックアップ時も、ZIPファイルをインポートするだけで完全に復元できます。</p>
+                </div>
+
+                <!-- Privacy & Security -->
+                <div class="feature-card">
+                    <h4>🛡️ 100% ローカルプライバシー保存</h4>
+                    <p>BizSnapはクラウドサーバーに個人情報を送信しません。すべての名刺画像と情報は、お使いのデバイス内の暗号化領域（SwiftData）にのみ保存されます。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Plans Comparison -->
+        <section class="section" id="plans">
+            <div class="section-header">
+                <div class="section-icon">💎</div>
+                <h2 class="section-title">プラン・料金体系（Free vs Premium）</h2>
+            </div>
+
+            <p>BizSnapは基本機能を無料でお使いいただけます。より多くの名刺管理やカスタマイズ機能が必要な場合はプレミアムプランをご利用ください。</p>
+
+            <table class="plan-table">
+                <thead>
+                    <tr>
+                        <th>機能・制限項目</th>
+                        <th>フリープラン</th>
+                        <th>プレミアムプラン (￥500/月)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1日あたりの登録制限</td>
+                        <td>最大 5 件 / 日</td>
+                        <td><span class="check-icon">✓</span> 無制限</td>
+                    </tr>
+                    <tr>
+                        <td>一覧画面の表示件数</td>
+                        <td>最新 5 件まで表示</td>
+                        <td><span class="check-icon">✓</span> 全件表示 (無制限)</td>
+                    </tr>
+                    <tr>
+                        <td>扱う項目のカスタマイズ</td>
+                        <td>全項目固定表示</td>
+                        <td><span class="check-icon">✓</span> 自由に変更可能</td>
+                    </tr>
+                    <tr>
+                        <td>データ書き出し (ZIPバックアップ)</td>
+                        <td><span class="cross-icon">✕</span></td>
+                        <td><span class="check-icon">✓</span> ご利用可能</td>
+                    </tr>
+                    <tr>
+                        <td>データインポート</td>
+                        <td><span class="cross-icon">✕</span></td>
+                        <td><span class="check-icon">✓</span> ご利用可能</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="callout callout-warning" style="margin-top:20px;">
+                ⚠️ <strong>注意:</strong> フリープラン時もデータ自体は安全に保持されています。プレミアムプランに加入することですべての過去データに即座にアクセス・表示できるようになります。
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="section" id="faq">
+            <div class="section-header">
+                <div class="section-icon">❓</div>
+                <h2 class="section-title">よくある質問 (FAQ)</h2>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">名刺の文字認識（OCR）がうまく機能しない場合は？</div>
+                <div class="faq-answer">
+                    なるべく明るい場所で、名刺と背景のコントラスト（例: 白い名刺なら暗い色の机の上）をはっきりさせて撮影してください。カメラの画面をタップすると手動でピントを合わせることができます。
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">パズル入力で誤って間違ったチップを入れてしまいました。どう消せばいいですか？</div>
+                <div class="faq-answer">
+                    パズル画面上部の該当フィールド（例: 会社名欄）を「ダブルタップ（トントンと2回タップ）」してください。一発で入力内容がクリアされます。
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">機種変更時のデータ引き継ぎ方法は？</div>
+                <div class="faq-answer">
+                    旧端末のBizSnapで左上のメニュー（「...」アイコン）から「全データ書き出し」を行い、作成されたZIPファイルをファイルアプリやAirDrop等で保管します。新端末でBizSnapをインストール後、「インポート」を選択してZIPファイルを選ぶと引き継ぎが完了します。
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">サブスクリプション（プレミアムプラン）の解約方法は？</div>
+                <div class="faq-answer">
+                    iPhoneの「設定」アプリ ＞ [ご自身のお名前] ＞ 「サブスクリプション」を開き、「BizSnap」を選択して「サブスクリプションをキャンセル」をタップしてください。
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2026 BizSnap / Hiroyuki Ichijo. All rights reserved.</p>
+        <p style="margin-top:6px;">
+            <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/" target="_blank" style="color:var(--text-sub);">利用規約 (EULA)</a> | 
+            <a href="https://gist.github.com/ichi320/74f6ac77dda2d72885fc643e8aace273" target="_blank" style="color:var(--text-sub);">プライバシーポリシー</a>
+        </p>
+    </footer>
+
+</body>
+</html>
